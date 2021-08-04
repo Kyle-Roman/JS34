@@ -1,3 +1,40 @@
+const refs = {
+    startBtn: document.getElementById('start'),
+    stopBtn: document.querySelector('#stop'),
+    secondsText: document.querySelector('.seconds'),
+    minutesText: document.querySelector('.minutes'),
+};
+
+function timer() {
+    result = Math.floor((new Date() - startDate) / 1000);
+    refs.secondsText.textContent = seconds < 10 ? `0${seconds}` : seconds;
+    refs.minutesText.textContent = minutes < 10 ? `0${minutes}` : minutes;
+
+    seconds = result % 60;
+    minutes = Math.floor(result / 60);
+};
+
+let watchId = null;
+let startDate = null;
+let result = null;
+let seconds = null;
+let minutes = null;
+
+
+
+function startWatch() {
+    startDate = new Date();
+    watchId = setInterval(timer, 1000);
+};
+
+function stopWatch() {
+    clearInterval(watchId);
+}
+
+refs.startBtn.addEventListener('click', startWatch);
+refs.stopBtn.addEventListener('click', stopWatch);
+
+
 // function addClasses() {
 //   const modal = document.querySelector(".modal");
 //   modal.classList.add("animate__bounce", "modal_show");
